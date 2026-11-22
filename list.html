@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FreeSwaps List</title>
+<meta name="description" content="Free apps that replace paid ones, each with an official link and the catch.">
+<meta property="og:title" content="FreeSwaps: free apps that replace paid ones">
+<meta property="og:image" content="og.png">
+<link rel="icon" href="logo.png">
+<style>
+  :root { --bg1:#0a0c1e; --bg2:#1c0e34; --card:#ffffff0f; --line:#ffffff22; --text:#fff; --muted:#c3c3d4; --green:#2ee68c; --yellow:#ffd23f; --red:#ff7070; }
+  * { box-sizing:border-box; }
+  body { margin:0; font-family:"Segoe UI",system-ui,-apple-system,Roboto,sans-serif; color:var(--text);
+         background:radial-gradient(circle at 15% 5%,#3b1f8a55,transparent 40%),linear-gradient(var(--bg1),var(--bg2)) fixed; }
+  main { max-width:720px; margin:0 auto; padding:28px 16px 60px; }
+  header { display:flex; align-items:center; gap:14px; margin-bottom:6px; }
+  header img { width:56px; height:56px; border-radius:50%; }
+  h1 { font-size:30px; margin:0; font-weight:900; line-height:1.15; }
+  h1 span { color:var(--yellow); }
+  .intro { color:var(--muted); margin:10px 0 18px; }
+  .disclosure { font-size:13px; color:#a7a7bd; background:#ffffff0a; border:1px solid var(--line); border-radius:12px; padding:10px 12px; margin-bottom:22px; }
+  h2 { font-size:15px; letter-spacing:1.5px; text-transform:uppercase; color:var(--yellow); margin:30px 0 12px; }
+  .card { background:var(--card); border:1px solid var(--line); border-radius:18px; padding:16px 18px; margin-bottom:12px; }
+  .instead { font-size:12px; font-weight:700; letter-spacing:1px; text-transform:uppercase; color:var(--red); }
+  .row { display:flex; align-items:center; justify-content:space-between; gap:12px; margin-top:4px; flex-wrap:wrap; }
+  .name { font-size:24px; font-weight:900; }
+  .go { background:var(--green); color:#062016; text-decoration:none; font-weight:800; padding:10px 16px; border-radius:12px; white-space:nowrap; }
+  .catch { color:var(--muted); font-size:15px; margin-top:8px; }
+  .catch b { color:#fff; }
+  .upgrade { margin-top:10px; padding-top:10px; border-top:1px dashed var(--line); font-size:14px; color:var(--muted); }
+  .upgrade a { color:var(--yellow); font-weight:700; }
+  .tag { font-size:11px; border:1px solid #ffd23f88; color:var(--yellow); border-radius:6px; padding:1px 6px; margin-left:6px; }
+  footer { margin-top:34px; color:#9a9ab0; font-size:13px; text-align:center; }
+  footer a { color:var(--green); }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <img src="logo.png" alt="FreeSwaps logo">
+    <h1>Free apps that replace <span>paid ones</span></h1>
+  </header>
+  <p class="intro">Every tool links to its official site. Every one comes with its catch, because every free tool has one.</p>
+  <p class="disclosure">Some "upgrade" links may be affiliate links, marked <span class="tag">affiliate</span>. If you buy through one, FreeSwaps may earn a commission at no extra cost to you. The free tools are never affiliate links.</p>
+  <div id="list"></div>
+  <footer>
+    One new swap a day on Instagram: <a href="https://www.instagram.com/freeswaps_/">@freeswaps_</a><br>
+    Free tiers change. Check each tool's site before you rely on it.
+  </footer>
+</main>
+
+<script>
+/* EDIT HERE. To add an affiliate link: paste it into "aff" for that upgrade.
+   The page then uses it and shows the "affiliate" tag automatically.          */
+const SECTIONS = [
+  { title: "The 12 free swaps", items: [
+    { paid: "Photoshop (desktop)", free: "GIMP", url: "https://www.gimp.org/", catch: "steeper learning curve" },
+    { paid: "Illustrator", free: "Inkscape", url: "https://inkscape.org/", catch: "fewer pro print features" },
+    { paid: "Painting apps", free: "Krita", url: "https://krita.org/", catch: "desktop only" },
+    { paid: "Cinema 4D / Maya", free: "Blender", url: "https://www.blender.org/", catch: "takes time to learn" },
+    { paid: "Adobe Audition", free: "Audacity", url: "https://www.audacityteam.org/", catch: "fewer pro audio-repair tools" },
+    { paid: "Screen recorders", free: "OBS Studio", url: "https://obsproject.com/", catch: "ten minutes of setup" },
+    { paid: "Simple video editors", free: "Shotcut", url: "https://shotcut.org/", catch: "fewer templates" },
+    { paid: "Microsoft Office (desktop)", free: "LibreOffice", url: "https://www.libreoffice.org/", catch: "some formatting drift in complex files" },
+    { paid: "Evernote", free: "Obsidian", url: "https://obsidian.md/", catch: "syncing between devices is paid" },
+    { paid: "1Password", free: "Bitwarden", url: "https://bitwarden.com/", catch: "fewer extras on the free plan",
+      upgrade: { name: "Bitwarden Premium", why: "for 2FA codes and file attachments", url: "https://bitwarden.com/pricing/", aff: "" } },
+    { paid: "Paid AI research tools", free: "Google NotebookLM", url: "https://notebooklm.google.com/", catch: "needs a Google account" },
+    { paid: "Paid social design tools", free: "Canva (free plan)", url: "https://www.canva.com/", catch: "the best templates are Pro",
+      upgrade: { name: "Canva Pro", why: "for premium templates and brand kits", url: "https://www.canva.com/pro/", aff: "" } },
+  ]},
+  { title: "From the reel: stop paying $56 a month", items: [
+    { paid: "Photoshop", free: "Photopea", url: "https://www.photopea.com/", catch: "shows ads unless you pay to remove them" },
+    { paid: "Premiere Pro", free: "DaVinci Resolve", url: "https://www.blackmagicdesign.com/products/davinciresolve", catch: "needs a laptop with a decent graphics chip" },
+    { paid: "Microsoft 365", free: "Google Docs, Sheets & Slides", url: "https://docs.google.com/", catch: "needs a Google account" },
+  ]},
+  { title: "Bonus: privacy", items: [
+    { paid: "Paid VPNs", free: "Proton VPN (free plan)", url: "https://protonvpn.com/", catch: "fewer server locations, slower at busy times",
+      upgrade: { name: "Proton VPN Plus", why: "for more countries and faster speeds", url: "https://protonvpn.com/pricing", aff: "" } },
+  ]},
+];
+
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;" }[c]));
+const src = new URLSearchParams(location.search).get("src") || "list";
+document.getElementById("list").innerHTML = SECTIONS.map(sec => `
+  <h2>${esc(sec.title)}</h2>
+  ${sec.items.map(it => {
+    const up = it.upgrade;
+    const upHtml = up ? `<div class="upgrade">When free isn't enough: <a href="${esc(up.aff || up.url)}" target="_blank" rel="noopener${up.aff ? " sponsored" : ""}">${esc(up.name)}</a>${up.aff ? '<span class="tag">affiliate</span>' : ""} ${esc(up.why)}</div>` : "";
+    return `<div class="card">
+      <div class="instead">Instead of ${esc(it.paid)}</div>
+      <div class="row"><div class="name">${esc(it.free)}</div>
+        <a class="go" href="${esc(it.url)}" target="_blank" rel="noopener">Get it free &rarr;</a></div>
+      <div class="catch"><b>The catch:</b> ${esc(it.catch)}</div>${upHtml}
+    </div>`;
+  }).join("")}`).join("");
+</script>
+</body>
+</html>
